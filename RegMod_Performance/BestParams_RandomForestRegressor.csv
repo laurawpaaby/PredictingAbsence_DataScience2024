@@ -1,0 +1,2 @@
+Model;bootstrap;max_depth;max_features;min_samples_leaf;min_samples_split;n_estimators
+<class 'sklearn.ensemble._forest.RandomForestRegressor'>;False;30;sqrt;1;10;300

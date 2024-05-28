@@ -1,0 +1,2 @@
+Model;colsample_bytree;learning_rate;max_depth;n_estimators;subsample
+<class 'xgboost.sklearn.XGBRegressor'>;0.7;0.1;10;100;0.9
