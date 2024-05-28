@@ -22,7 +22,7 @@ bash setup.sh
 ## Usage
 
 ### Regression Models and Feature Importance 
-> **Step 2** Run ```data_prep_1.ipynb``` and ```data_prep_2.ipynb```
+**Step 2** Run ```data_prep_1.ipynb``` and ```data_prep_2.ipynb``` \n
 Running these notebooks will: 
 - Preprocess and clean data 
 - Generate additional temporal features
@@ -31,16 +31,16 @@ Running these notebooks will:
 - Visualize the raw data 
 
 
-> **Step 3** Run ```regressors_GRID.py``` 
+**Step 3** Run ```regressors_GRID.py``` \n
 By this, a grid search for all regressors are conducted and the parameters yielding the greatest performance is stored in RegMod_Performance.
 
-> **Step 4** Run ```fitting_best_params.py``` *maybe we should drop this step*
+**Step 4** Run ```fitting_best_params.py``` *maybe we should drop this step*\n
 By running this, all models are fitted by their best parameters and the their performance ($R^2$, $MAE$, $RMSE$) on the **test** data will be stored. 
 
-> **Step 5** Run ```feature_imp.py``` 
+**Step 5** Run ```feature_imp.py``` \n
 By running this, the permutation feature importance and their standard deviatoins of the two best performing models (XGBoost and Random Forest) will be stored 
 
-> **Step 6** Run ```plot_script.R```
+**Step 6** Run ```plot_script.R```\n
 In R, run this to get the plot visualizing the feature importances and the predictions of the model compared to the true values.
 
 
