@@ -1,0 +1,2 @@
+Model;algorithm;leaf_size;n_neighbors;weights
+<class 'sklearn.neighbors._regression.KNeighborsRegressor'>;ball_tree;30;5;uniform

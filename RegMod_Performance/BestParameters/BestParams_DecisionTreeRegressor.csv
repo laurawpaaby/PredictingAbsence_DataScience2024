@@ -1,0 +1,2 @@
+Model;criterion;max_depth;min_samples_leaf;min_samples_split;splitter
+<class 'sklearn.tree._classes.DecisionTreeRegressor'>;poisson;10;2;10;best

@@ -12,7 +12,7 @@ def evaluate_model(model_class, X_train, y_train, X_test, y_test):
         raise ValueError("Model must be either RandomForestRegressor or XGBRegressor")
 
     # File path to the CSV containing best parameters
-    file_path = f'/work/DataScienceExam2024/Data_Science_Exam_S24/RegMod_Performance/BestParams_{model_class.__name__}.csv'
+    file_path = f'/work/exam_repo/PredictingAbsence_DataScience2024/RegMod_Performance/BestParameters/BestParams_{model_class.__name__}.csv'
     
     # Read the best parameters found in the grid search
     best_param = pd.read_csv(file_path, sep=';')
@@ -26,7 +26,7 @@ def evaluate_model(model_class, X_train, y_train, X_test, y_test):
     # Perform permutation importance analysis
     result = permutation_importance(model, X_test, y_test, n_repeats=10, random_state=42, n_jobs=2)
 
-    # Create a DataFrame for importances
+    # Create a DataFrame for importance
     df = pd.DataFrame({
         'Feature': X_train.columns,
         'Importance': result.importances_mean,
@@ -34,16 +34,16 @@ def evaluate_model(model_class, X_train, y_train, X_test, y_test):
     })
 
     # Save the DataFrame to a CSV file
-    df.to_csv(f'/work/DataScienceExam2024/Data_Science_Exam_S24/RegMod_Performance/feature_importances_{model_class.__name__}.csv', index=False)
+    df.to_csv(f'/work/exam_repo/PredictingAbsence_DataScience2024/RegMod_Performance/feature_importances_{model_class.__name__}_latest.csv', index=False)
 
     return df
 
 
 ### loading data: 
-X_train = pd.read_csv('/work/DataScienceExam2024/Data/X_train_scaled.csv', sep=',')
-y_train = pd.read_csv('/work/DataScienceExam2024/Data/y_train.csv', sep=',')
-X_test = pd.read_csv('/work/DataScienceExam2024/Data/X_test_scaled.csv', sep=',') 
-y_test = pd.read_csv('/work/DataScienceExam2024/Data/y_test.csv', sep=',') 
+X_train = pd.read_csv('/work/exam_repo/Data/X_train_scaled_80.csv', sep=',')
+y_train = pd.read_csv('/work/exam_repo/Data/y_train_20.csv', sep=',')
+X_test = pd.read_csv('/work/exam_repo/Data/X_test_scaled_80.csv', sep=',') 
+y_test = pd.read_csv('/work/exam_repo/Data/y_test_20.csv', sep=',') 
 
 # running the func 
 evaluate_model(RandomForestRegressor, X_train, y_train, X_test, y_test)

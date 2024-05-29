@@ -1,0 +1,2 @@
+Model;alpha;solver
+<class 'sklearn.linear_model._ridge.Ridge'>;0.1;sag

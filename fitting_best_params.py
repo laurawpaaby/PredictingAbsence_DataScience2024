@@ -12,16 +12,17 @@ from xgboost import XGBRegressor
 from sklearn.linear_model import Ridge
 from sklearn.neural_network import MLPRegressor
 from ast import literal_eval
+from sklearn.preprocessing import MinMaxScaler
 
 
 # metrics
 from sklearn.metrics import root_mean_squared_error, mean_absolute_error, r2_score, explained_variance_score #mean_squared_error <- has been deprecated in version 1.4 and will be removed
 
 # read all csv's from the training data - removing and old index column
-X_train = pd.read_csv('/work/DataScienceExam2024/Data/X_train_scaled.csv', sep=',')
-y_train = pd.read_csv('/work/DataScienceExam2024/Data/y_train.csv', sep=',')
-X_test = pd.read_csv('/work/DataScienceExam2024/Data/X_test_scaled.csv', sep=',') 
-y_test = pd.read_csv('/work/DataScienceExam2024/Data/y_test.csv', sep=',') 
+X_train = pd.read_csv('/work/exam_repo/Data/X_train_scaled_80.csv', sep=',')
+y_train = pd.read_csv('/work/exam_repo/Data/y_train_20.csv', sep=',')
+X_test = pd.read_csv('/work/exam_repo/Data/X_test_scaled_80.csv', sep=',') 
+y_test = pd.read_csv('/work/exam_repo/Data/y_test_20.csv', sep=',') 
 
 ### df to store in: 
 
@@ -75,29 +76,19 @@ print("The mean dummy model is finished!")
 
 
 
-########### THE DAY BEFORE MODEL ############################
-class ColumnPredictor:
-    def __init__(self, column):
-        self.column = column
-    
-    def fit(self, X, y=None):
-        # This model doesn't learn anything from the data, so fit does nothing.
-        return self
-    
-    def predict(self, X):
-        # Return the specified column as prediction
-        return X[self.column].values
-
+#### manually doing it instead: 
 def dummy_yesterday(X_train, y_train, X_test, y_test):
     print("The Dummy_Yesterday model is now fitting")
-    # Create an instance of the custom predictor
-    column_predictor = ColumnPredictor('Antal_timer_yesterday')
+    
+    #  Extract the 'Antal_timer_yesterday' as a numpy array and reshape it for scaling
+    y_pred = X_test['Antal_timer_yesterday'].values.reshape(-1, 1)
 
-    # "Fit" the model (this does nothing but allows method chaining and maintains consistency with sklearn interface)
-    column_predictor.fit(X_train)
+    scaler = MinMaxScaler()
+    scaler.min_ = np.array([y_train.min()])  # min of the feature
+    scaler.scale_ = np.array([1/(y_train.max() - y_train.min())])  # scale of the feature 
 
-    # Perform predictions on the test set (this simply returns the values of column 'antal timer yesterday')
-    y_pred = column_predictor.predict(X_test)
+    # Apply inverse transformation to get back to original values
+    y_pred_original = scaler.inverse_transform(y_pred)
 
     # Ensure y_test is a 1D numpy array
     if isinstance(y_test, pd.DataFrame):
@@ -106,10 +97,10 @@ def dummy_yesterday(X_train, y_train, X_test, y_test):
         y_test = y_test.to_numpy()
 
     # metrics
-    mae = mean_absolute_error(y_test, y_pred)
-    rmse = root_mean_squared_error(y_test, y_pred)
-    r2 = r2_score(y_test, y_pred)
-    evs = explained_variance_score(y_test, y_pred)
+    mae = mean_absolute_error(y_test, y_pred_original)
+    rmse = root_mean_squared_error(y_test, y_pred_original)
+    r2 = r2_score(y_test, y_pred_original)
+    evs = explained_variance_score(y_test, y_pred_original)
 
     # Store metrics in the dataframe
     global metrics
@@ -117,8 +108,8 @@ def dummy_yesterday(X_train, y_train, X_test, y_test):
     
 
     data_to_append = pd.DataFrame({
-        'Model': np.repeat("dummy_yesterday", len(y_pred)),  # Repeat model name for each entry
-        'Predicted Values': y_pred,
+        'Model': np.repeat("dummy_yesterday", len(y_pred_original)),  # Repeat model name for each entry
+        'Predicted Values': y_pred_original.flatten(),
         'True Values': y_test
     })
 
@@ -128,13 +119,8 @@ def dummy_yesterday(X_train, y_train, X_test, y_test):
 
     return metrics, predictions
 
-
-# run the functions above
 dummy_yesterday(X_train, y_train, X_test, y_test)
 print("The dummy model predicting yesterdays outcome is finished!")
-
-
-
 
 ######## LINEAR REGRESSION ########
 def linear_regression(X_train, y_train, X_test, y_test):
@@ -203,7 +189,7 @@ def model_fit(model_class, X_train, x_test, y_train, y_test):
     model = model_class()  # instantiate model
 
     # read the best parameters found in the grid search: 
-    best_param = pd.read_csv(f'/work/DataScienceExam2024/Data_Science_Exam_S24/RegMod_Performance/BestParams_{model_class.__name__}.csv', sep=';')
+    best_param = pd.read_csv(f'/work/exam_repo/PredictingAbsence_DataScience2024/RegMod_Performance/BestParameters/BestParams_{model_class.__name__}.csv', sep=';')
     best_param.drop(columns=['Model'], inplace=True)
     best_param_dict = best_param.to_dict(orient='records')[0]
 
@@ -249,7 +235,7 @@ def model_fit(model_class, X_train, x_test, y_train, y_test):
     
 
 
-models = [MLPRegressor, Ridge, KNeighborsRegressor, DecisionTreeRegressor, RandomForestRegressor, XGBRegressor]
+models = [Ridge, KNeighborsRegressor, DecisionTreeRegressor, RandomForestRegressor, XGBRegressor, MLPRegressor]
 
 # loop over models and param grids and run the function
 for model_class in models:
@@ -258,9 +244,9 @@ for model_class in models:
 
 
 
-metrics.to_csv(f'/work/DataScienceExam2024/Data/metrics_test.csv', sep=';', index=False)
-predictions.to_csv(f'/work/DataScienceExam2024/Data/predictions_test.csv', sep=';', index=False)
+metrics.to_csv(f'/work/exam_repo/PredictingAbsence_DataScience2024/RegMod_Performance/metrics_test_latest.csv', sep=';', index=False)
+predictions.to_csv(f'/work/exam_repo/PredictingAbsence_DataScience2024/RegMod_Performance/predictions_test_latest.csv', sep=';', index=False)
 
 ### getting the first 100 true values for plotting purposes: 
 first_predictions = pd.DataFrame(predictions['True Values'][0:100])
-first_predictions.to_csv(f'/work/DataScienceExam2024/Data_Science_Exam_S24/plots/true100val.csv', index=False)
+first_predictions.to_csv(f'/work/exam_repo/PredictingAbsence_DataScience2024/plots/true100val.csv', index=False)

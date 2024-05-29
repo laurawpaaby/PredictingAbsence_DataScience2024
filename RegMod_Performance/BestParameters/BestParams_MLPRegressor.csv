@@ -1,0 +1,2 @@
+Model;activation;alpha;hidden_layer_sizes;learning_rate;learning_rate_init;solver
+ANN;relu;0.001;[50,50];constant;0.01;adam

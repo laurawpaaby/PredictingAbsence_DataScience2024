@@ -9,7 +9,7 @@ library(ggplot2)
 ########################################### PREDICTIONS !!! ##############################################
 ###########################################################################################################
 # Load data
-predictions <- read.csv('/work/DataScienceExam2024/Data/predictions_test.csv',sep=';')
+predictions <- read.csv('/work/exam_repo/PredictingAbsence_DataScience2024/RegMod_Performance/predictions_test_latest.csv',sep=';')
 
 # Calculate the difference between 'Predicted Values' and 'True Values'
 predictions <- predictions %>%
@@ -31,38 +31,67 @@ filtered_predictions <- predictions %>%
 
 # Plotting the difference over the model index
 p <- ggplot(filtered_predictions, aes(x = model_index, y = Difference, color = Model, group = Model)) +
-        geom_line() +
-        labs(title = 'Difference Between Predicted and True Values across Models',
+        geom_line(size = 0.2) +
+        geom_point(alpha = 0.3, size = 0.2) +
+        labs(title = 'A) Difference Between Predicted and True Values across Models',
             x = 'Index',
             y = 'Difference') +
         theme_minimal() +
-        scale_color_manual(values = c('blue', 'navy', '#40B94D', "darkgreen", '#ADD8E6', '#097D80', 'black', '#20A7AB', 'grey')) +
+        scale_color_manual(values = c('blue', 'navy', '#40B94D', "darkgreen", '#ADD8E6', 'purple', 'black', '#20A7AB', 'orange')) +
         theme(legend.title = element_blank(),
               text = element_text(family = "Times New Roman"),
               plot.title = element_text(size = 18, face = "bold")) +
         guides(color = guide_legend(override.aes = list(size = 3)))
 p
 
-ggsave("/work/DataScienceExam2024/Data_Science_Exam_S24/plots/dif_pred_plot.jpg", plot = p, width = 10, height = 6, units = "in", dpi = 300)
+ggsave("/work/exam_repo/PredictingAbsence_DataScience2024/plots/dif_pred_plot.jpg", plot = p, width = 10, height = 6, units = "in", dpi = 300)
 
 
 #### true values plot
-true_val <- read.csv('/work/DataScienceExam2024/Data_Science_Exam_S24/plots/true100val.csv',sep=';')
+true_val <- read.csv('/work/exam_repo/PredictingAbsence_DataScience2024/plots/true100val.csv',sep=';')
 true_val <- true_val %>% 
   mutate(model_index = row_number()) 
 
 p_true <- ggplot(true_val, aes(x = model_index, y = True.Values)) +
-  geom_line() +
-  labs(title = 'A) True Values',
+  geom_line(size = 0.2, color = '#097D80') +
+  geom_point(alpha = 0.3, size = 0.2) +
+  scale_color_manual(values = '#097D80') +
+  labs(title = 'B) True Values',
        x = 'Index',
        y = 'Difference') +
   theme_minimal() +
-  scale_color_manual(values = '#097D80') +
   theme(legend.title = element_blank(),
         text = element_text(family = "Times New Roman"),
         plot.title = element_text(size = 18, face = "bold")) +
   guides(color = guide_legend(override.aes = list(size = 3)))
 p_true
+
+ggsave("/work/exam_repo/PredictingAbsence_DataScience2024/plots/plot_true.jpg", plot = p_true, width = 10, height = 6, units = "in", dpi = 300)
+
+
+
+#################################################################################
+########################### RESIDUAL PLOTS #####################################
+#################################################################################
+err <- predictions %>%
+  ggplot()+
+  geom_density(aes(x=Difference)) +
+  labs(title = 'Distribution of Errors',
+       x = 'Errors',
+       y = 'Density') +
+  theme_minimal() +
+  xlim(-25,25)+
+  scale_color_manual(values = '#097D80') +
+  theme(legend.title = element_blank(),
+        text = element_text(size = 13, family = "Times New Roman"),
+        plot.title = element_text(size = 18, face = "bold")) +
+  facet_wrap(~Model)+
+  guides(color = guide_legend(override.aes = list(size = 3)))
+err
+
+ggsave("/work/exam_repo/PredictingAbsence_DataScience2024/plots/error_dist.jpg", plot = err, width = 10, height = 6, units = "in", dpi = 300)
+
+
 
 #################################################################################
 ########################### FEATURE IMPORTANCE ##################################
