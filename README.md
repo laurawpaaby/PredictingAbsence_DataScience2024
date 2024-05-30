@@ -61,7 +61,6 @@ The script generates plots both for the entire timeseries and a subset including
 ## Repository Overview
 ```
 .
-├── .gitignore
 ├── data_prep/                                  <--- folder containing scripts related to data prep and data visualization
 │   ├── data_prep_1.ipynb
 │   ├── data_prep_2.ipynb
@@ -76,11 +75,12 @@ The script generates plots both for the entire timeseries and a subset including
 │   ├── forecast_subset.py
 │   └── helper_functions_forecasting.py
 │
+├── .gitignore
+├── README.md
 ├── baselinemodels.py
 ├── feature_imp.py                                      
 ├── fitting_best_params.py   
 ├── plot_script.R
-├── README.md
 ├── regressors_GRID.py
 ├── requirements.txt            
 └── setup.sh
