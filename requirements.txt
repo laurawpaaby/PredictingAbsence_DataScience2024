@@ -9,3 +9,8 @@ torch
 transformers
 torchview
 xgboost
+keras
+tensorflow
+scikeras
+setuptools
+prophet

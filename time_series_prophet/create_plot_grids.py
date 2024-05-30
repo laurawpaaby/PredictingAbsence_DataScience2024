@@ -16,14 +16,14 @@ name_list = ['akutafdelingen_Adm.personale (8M_03)',
 for name in name_list:
     
     forecast, model = get_components(model_name = name, periods = 30, freq = 'D')
-    plot_components(forecast, model).savefig(f'./Prophet_forecasting/forecasting_plots/plot_components_{name}.png')
+    plot_components(forecast, model).savefig(f'./time_series_prophet/forecasting_plots/plot_components_{name}.png')
 
     import matplotlib.pyplot as plt
     from PIL import Image
 
     # Load images
-    image1 = Image.open(f"./Prophet_forecasting/forecasting_plots/subset_{name}.png")
-    image2 = Image.open(f'./Prophet_forecasting/forecasting_plots/plot_components_{name}.png')
+    image1 = Image.open(f"./time_series_prophet/forecasting_plots/subset_{name}.png")
+    image2 = Image.open(f'./time_series_prophet/forecasting_plots/plot_components_{name}.png')
 
     fig, axs = plt.subplots(1, 2, figsize=(20, 8))
 
@@ -46,5 +46,5 @@ for name in name_list:
     fig.suptitle(f'Prediction using Prophet: {name}', fontsize=18, fontfamily='serif', fontweight='bold')
 
     # Save figure
-    fig.savefig(f'./Prophet_forecasting/forecasting_plots/plot_grid_{name}.png')
+    fig.savefig(f'./time_series_prophet/forecasting_plots/plot_grid_{name}.png')
 

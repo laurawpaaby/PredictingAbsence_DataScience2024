@@ -56,7 +56,7 @@ def make_forecast(df_proph, dep, pos, periods = 30, freq = 'MS'):
 
     # Save model
     from prophet.serialize import model_to_json
-    with open(f'./Prophet_forecasting/model_{dep}_{pos}.json', 'w') as fout:
+    with open(f'./time_series_prophet/model_{dep}_{pos}.json', 'w') as fout:
         fout.write(model_to_json(model))
     
     print("saved model")
@@ -65,7 +65,7 @@ def make_forecast(df_proph, dep, pos, periods = 30, freq = 'MS'):
     future_dates = model.make_future_dataframe(periods=30, freq='D')
     forecast = model.predict(future_dates)
 
-    forecast.to_csv(f'./Prophet_forecasting/forecast_{dep}_{pos}.csv')
+    forecast.to_csv(f'./time_series_prophet/forecast_{dep}_{pos}.csv')
 
     return model, forecast
 
@@ -242,7 +242,7 @@ def get_components(model_name, periods = 30, freq = 'D'):
 
     # Load model
     from prophet.serialize import model_from_json
-    with open(f'./Prophet_forecasting/model_{model_name}.json', 'r') as fin:
+    with open(f'./time_series_prophet/model_{model_name}.json', 'r') as fin:
         model = model_from_json(fin.read())
 
     # Make predictions
