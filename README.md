@@ -1,4 +1,4 @@
-# Predicting Absenteeism at a Danish Super Hospital 🏥 ♥️ 🤖 
+# Predicting Absenteeism at Regionshospital Gødstrup 🏥 ♥️ 🤖 
 ### A exam paper in the course Data Science, Predicting, Forecasting at Cognitive Science, Aarhus University by Klara Fomsgaard and Laura Paaby
 
 ## Data availability
