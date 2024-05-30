@@ -96,8 +96,8 @@ ggsave("/work/exam_repo/PredictingAbsence_DataScience2024/plots/error_dist.jpg",
 #################################################################################
 ########################### FEATURE IMPORTANCE ##################################
 #################################################################################
-feature_imp <- read_csv('/work/DataScienceExam2024/Data/feature_importances_RandomForestRegressor.csv')
-
+feature_imp <- read_csv('/work/exam_repo/PredictingAbsence_DataScience2024/RegMod_Performance/feature_importances_RandomForestRegressor_latest.csv')
+feature_imp_XGb <- read_csv('/work/exam_repo/PredictingAbsence_DataScience2024/RegMod_Performance/feature_importances_XGBRegressor_latest.csv')
 
 
 # Plot using ggplot2
@@ -117,7 +117,6 @@ p2 <- ggplot(feature_imp, aes(x = reorder(Feature, Importance), y = Importance))
 p2
 
 ########################### COMBINED PLOT ##################################
-feature_imp_XGb <- read_csv('/work/DataScienceExam2024/Data/feature_importances_XGBRegressor.csv')
 
 # Add a model column to each dataframe
 feature_imp$Model <- "Random Forest"
@@ -148,4 +147,4 @@ p_combined <- ggplot(combined_feature_imp, aes(x = reorder(Feature, Importance),
 print(p_combined)
 
 
-ggsave("/work/DataScienceExam2024/Data_Science_Exam_S24/plots/feature_importances_COMBINED.jpg", plot = p_combined, width = 10, height = 6, dpi = 300)
+ggsave("/work/exam_repo/PredictingAbsence_DataScience2024/plots/feature_importances_COMBINED.jpg", plot = p_combined, width = 10, height = 6, dpi = 300)
