@@ -114,11 +114,11 @@ param_grid_dt = {
 }
 
 # combine param grids in dictionary
-model_param_grids = {#KNeighborsRegressor: param_grid_knn, 
-               #DecisionTreeRegressor: param_grid_dt,
-               #RandomForestRegressor: param_grid_rf,            
+model_param_grids = {KNeighborsRegressor: param_grid_knn, 
+               DecisionTreeRegressor: param_grid_dt,
+               RandomForestRegressor: param_grid_rf,            
                Ridge: param_grid_ridge,
-               #MLPRegressor: param_grid_mlp,
+               MLPRegressor: param_grid_mlp,
                XGBRegressor: param_grid_xgb               
                }
                
