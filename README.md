@@ -1,7 +1,7 @@
 # Predicting Absenteeism at Regionshospital Gødstrup 🏥 ♥️ 🤖 
 The present repository contains the code develped for an exam paper in the course Data Science, Predicting, and Forecasting at the Master's in Cognitive Science, Aarhus University by Klara Fomsgaard and Laura Paaby
 
-## Data availability
+#### Data availability
 Due to privacy restrictions, the analyzed data is not included in the current repository. Access may be granted upon request, with joined consent from Gødstrup Sygehus and the authors.
 
 ## Setup
