@@ -52,6 +52,10 @@ This script fits a Prophet forecasting model for selected groups in the emergenc
 - Administrative staff
 The script generates plots both for the entire timeseries and a subset including data and predictions from 2024-, and stores them in 'forecasting_plots'.
 
+
+Enjoy! 😉 
+
+
 ## Repository Overview
 ```
 .
