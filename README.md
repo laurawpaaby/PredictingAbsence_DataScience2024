@@ -5,7 +5,7 @@ The present repository contains the code develped for an exam paper in the cours
 Due to privacy restrictions, the analyzed data is not included in the current repository. Access may be granted upon request, with joined consent from Gødstrup Sygehus and the authors.
 
 ## Setup
-> **Step 1** Run ```setup.sh```
+**Step 1** Run ```setup.sh```
 
 To replicate the setup, we have included a bash script that automatically 
 
@@ -15,12 +15,6 @@ To replicate the setup, we have included a bash script that automatically
 4. Runs the script
 5. Deactivates the virtual environment
 
-Run the code below in your bash terminal:
-
-```bash
-bash setup.sh
-```
-
 ## Usage
 
 ### Regression Models and Feature Importance 
@@ -29,7 +23,7 @@ Running these notebooks will:
 - Preprocess and clean data 
 - Generate additional features
 - Scale independent variables 
-- Split the data into train (70%), validation (15%) and test (15%) subsets
+- Split the data into train (80%) and test (20%) subsets
 - Visualize the raw data 
 
 **Step 3** Run ```regressors_GRID.py``` <br>
@@ -68,6 +62,7 @@ The script generates plots both for the entire timeseries and a subset including
 │
 ├── plots/                                      <--- folder containing plots from feature importance analysis
 ├── Reg_Model_Performance/                      <--- folder with results from model comparison and feature importance
+│   └── BestParameters/                         <--- folder containing the best parameters
 │
 ├── time_series_prophet/                        <--- folder containing timeseries analysis and forecasting using Prophet
 │   ├── forecasting_plots/
