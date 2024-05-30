@@ -62,25 +62,26 @@ The script generates plots both for the entire timeseries and a subset including
 ```
 .
 ├── .gitignore
-├── .Rprofile                                   <--- script related to environment setup
-├── DEC_MAK_EXAM.Rproj
-├── jags_output/                                <--- folder containing BUGS objects and data frames containing MPD values for plotting
-├── plots/                                      <--- folder containing all plots produced by the scripts in src/
+├── data_prep/                                  <--- folder containing scripts related to data prep and data visualization
+│   ├── data_prep_1.ipynb
+│   ├── data_prep_2.ipynb
+│   └── descriptive_plots_and_data_split.ipynb
+│
+├── plots/                                      <--- folder containing plots from feature importance analysis
+├── Reg_Model_Performance/                      <--- folder with results from model comparison and feature importance
+│
+├── time_series_prophet/                        <--- folder containing timeseries analysis and forecasting using Prophet
+│   ├── forecasting_plots/
+│   ├── create_plot_grids.py
+│   ├── forecast_subset.py
+│   └── helper_functions_forecasting.py
+│
+├── baselinemodels.py
+├── feature_imp.py                                      
+├── fitting_best_params.py   
+├── plot_script.R
 ├── README.md
-├── renv/                                       <--- folder for storing project environment packages after using renv::restore()
-├── renv.lock                                   <--- list of packages automatically added to environment by renv::restore()
-└── src/
-    ├── Simulations.Rmd                         <--- messy markdown for experimenting with distributions
-    ├── group_diff_estimation.R
-    ├── group_diff_model_no_reparam.txt         <--- unused Bayesian model
-    ├── group_diff_model.txt
-    ├── group_diff_recovery.R
-    ├── group_mean_estimation.R
-    ├── group_model.txt
-    ├── group_recovery.R
-    ├── plot_functions.R                         <--- collection of all plotting functions utilized across the scripts
-    ├── simulation_functions.R                   <--- collection of all data simulation functions utilized across the scripts (mainly for recovery)
-    ├── subject_model_norm.txt                   <--- unused Bayesian model
-    ├── subject_model.txt
-    └── subject_recovery.R
+├── regressors_GRID.py
+├── requirements.txt            
+└── setup.sh
 ```
